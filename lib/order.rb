@@ -6,7 +6,7 @@ class Order
   attr_accessor :order_list
   DEFAULT_QUANTITY = 1
 
-  def initialize(menu = Menu.new, notification = Notification.new)
+  def initialize(menu = Menu.new, notification = Notification.new, )
     @order_list = {}
     @menu = menu
     @notification = notification

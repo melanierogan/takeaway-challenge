@@ -19,4 +19,9 @@ class Notification
       body: message)
   end
 
+  def order_text(message)
+    twiml = Twilio::TwiML::MessageResponse.new
+    twiml.message = "Bum off"
+  end
+
 end
