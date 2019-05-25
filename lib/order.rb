@@ -2,14 +2,14 @@ require_relative 'menu'
 require_relative 'text'
 
 class Order
-  attr_accessor :menu
-  attr_accessor :order_list
+  attr_accessor :menu, :order_list, :n
+
   DEFAULT_QUANTITY = 1
 
-  def initialize(menu = Menu.new, notification = Notification.new, )
+  def initialize(menu = Menu.new, n = Notification.new )
     @order_list = {}
     @menu = menu
-    @notification = notification
+    @n = n
   end
 
   def user_request
@@ -19,6 +19,11 @@ class Order
     puts "how many?"
     user_input_quantity = gets.chomp.to_i
     add(user_input_item, user_input_quantity)
+  end
+
+  def text_request
+    tidy_text = @n.search_text
+    add(tidy_text)
   end
 
   def add(item, quantity = DEFAULT_QUANTITY)
@@ -41,7 +46,7 @@ class Order
   def complete
     formatted_total = "£#{sprintf("%.2f", total)}"
     message = "You complete legend, thanks for ordering from MeRo Resto. Your total to pay is #{formatted_total} and your order will arrive by #{(Time.now + (60 * 60)).strftime("%H:%M")}...in your mind"
-    @notification.send_text(message)
+    @n.send_text(message)
   end
 
 end
